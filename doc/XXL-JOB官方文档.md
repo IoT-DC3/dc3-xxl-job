@@ -846,7 +846,7 @@ XXL-JOB是一个分布式任务调度平台，其核心设计目标是开发迅�
 #### 步骤二：部署项目：
 如果已经正确进行上述配置，可将项目编译打包部署。
 
-调度中心访问地址：http://localhost:8080/xxl-job-admin (该地址执行器将会使用到，作为回调地址)
+调度中心访问地址：http://localhost:8100/xxl-job-admin (该地址执行器将会使用到，作为回调地址)
 
 默认登录账号 "admin/123456", 登录后运行界面如下图所示。
 
@@ -875,14 +875,14 @@ docker pull xuxueli/xxl-job-admin
 - 创建容器并运行
 
 ```
-docker run -p 8080:8080 -v /tmp:/data/applogs --name xxl-job-admin  -d xuxueli/xxl-job-admin:{指定版本}
+docker run -p 8100:8100 -v /tmp:/data/applogs --name xxl-job-admin  -d xuxueli/xxl-job-admin:{指定版本}
 
 /**
 * 如需自定义 mysql 等配置，可通过 "-e PARAMS" 指定，参数格式 PARAMS="--key=value  --key2=value2" ；
 * 配置项参考文件：/xxl-job/xxl-job-admin/src/main/resources/application.properties
 * 如需自定义 JVM内存参数 等配置，可通过 "-e JAVA_OPTS" 指定，参数格式 JAVA_OPTS="-Xmx512m" ；
 */
-docker run -e PARAMS="--spring.datasource.url=jdbc:mysql://127.0.0.1:3306/xxl_job?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai" -p 8080:8080 -v /tmp:/data/applogs --name xxl-job-admin  -d xuxueli/xxl-job-admin:{指定版本}
+docker run -e PARAMS="--spring.datasource.url=jdbc:mysql://127.0.0.1:3306/xxl_job?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai" -p 8100:8100 -v /tmp:/data/applogs --name xxl-job-admin  -d xuxueli/xxl-job-admin:{指定版本}
 ```
 
 
@@ -902,7 +902,7 @@ docker run -e PARAMS="--spring.datasource.url=jdbc:mysql://127.0.0.1:3306/xxl_jo
 执行器配置，配置内容说明：
 
     ### 调度中心部署根地址 [选填]：如调度中心集群部署存在多个地址则用逗号分隔。执行器将会使用该地址进行"执行器心跳注册"和"任务结果回调"；为空则关闭自动注册；
-    xxl.job.admin.addresses=http://127.0.0.1:8080/xxl-job-admin
+    xxl.job.admin.addresses=http://127.0.0.1:8100/xxl-job-admin
     
     ### 执行器通讯TOKEN [选填]：非空时启用；
     xxl.job.accessToken=
@@ -1590,7 +1590,7 @@ XXL-JOB是一个跨语言的任务调度平台，主要体现在如下几个方�
 ```
 mvn clean package
 docker build -t xuxueli/xxl-job-admin ./xxl-job-admin
-docker run --name xxl-job-admin -p 8080:8080 -d xuxueli/xxl-job-admin
+docker run --name xxl-job-admin -p 8100:8100 -d xuxueli/xxl-job-admin
 ```
 
 ### 5.20 避免任务重复执行   
