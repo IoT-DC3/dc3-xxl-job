@@ -15,12 +15,12 @@ $(function(){
         rules : {  
         	userName : {  
         		required : true ,
-                minlength: 4,
+                minlength: 3,
                 maxlength: 18
             },  
             password : {  
             	required : true ,
-                minlength: 4,
+                minlength: 3,
                 maxlength: 18
             } 
         }, 
