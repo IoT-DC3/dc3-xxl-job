@@ -19,7 +19,7 @@ FROM registry.cn-beijing.aliyuncs.com/dc3/alpine-java:dragonwell-8.13.14 AS runt
 MAINTAINER pnoker <pnokers.icloud.com>
 
 # default env
-ENV PARAMS
+ENV PARAMS ''
 ENV SERVER_PORT 8100
 
 # default jvm & gc env
@@ -39,16 +39,16 @@ ENV GC_LOG   -XX:+PrintGCDetails \
              -XX:+UseGCLogFileRotation \
              -XX:NumberOfGCLogFiles=10 \
              -XX:GCLogFileSize=10M \
-             -Xloggc:dc3/logs/center/xxl-job/gc/gc.log
+             -Xloggc:dc3/logs/center/job/gc/gc.log
 
 RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
-WORKDIR /dc3-center/dc3-xxl-job
+WORKDIR /dc3-center/dc3-job
 
-ADD ./target/xxl-job-admin-*.jar /dc3-xxl-job.jar
+ADD ./target/xxl-job-admin-*.jar ./dc3-job.jar
 
 EXPOSE ${SERVER_PORT}
-VOLUME /dc3-center/dc3-xxl-job/dc3/logs
+VOLUME /dc3-center/dc3-job/dc3/logs
 
-CMD mkdir -p /dc3-center/dc3-xxl-job/dc3/logs/center/xxl-job/gc \
-    && java ${JAVA_OPS} ${GC_LOG} -jar dc3-xxl-job.jar ${PARAMS}
+CMD mkdir -p /dc3-center/dc3-job/dc3/logs/center/job/gc \
+    && java ${JAVA_OPS} ${GC_LOG} -jar dc3-job.jar ${PARAMS}
